@@ -1,0 +1,3 @@
+pools:
+  - pool_id: k8s-pool
+    comment: "Managed by Terraform"
