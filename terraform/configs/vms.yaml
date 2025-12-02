@@ -3,11 +3,11 @@ tags:
 vms:
   - vm_id: 11
     vm_name: kube-node-01
-    address: 10.20.30.111/24
+    vm_ip_address: 10.20.30.111/24
     node_name: pve1
-    cores: 4
-    ram: 12288
+    cores_count: 4
+    ram_amount: 12288
     disk_size: 200
-    tags: [kube_control_plane, kube_node, etcd, debian_linux]
-    pool_id: k8s-pool
-    description: "<div align='center'><img src='https://www.allangray.co.za/globalassets/information-technology/kubernetes.png' /></div>"
+    vm_tags: [kube_control_plane, kube_node, etcd, debian_linux]
+    vm_pool_id: k8s-pool
+    vm_description: "<div align='center'><img src='https://www.allangray.co.za/globalassets/information-technology/kubernetes.png' /></div>"
