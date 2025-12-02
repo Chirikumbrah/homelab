@@ -85,13 +85,13 @@ variable "vm_description" {
 variable "gateway_ip" {
   description = "Gateway IP address for the VM network"
   type        = string
-  default     = "10.20.30.111"
+  default     = "192.168.1.111"
 }
 
 variable "dns_servers" {
   description = "DNS servers for VM"
   type        = list(string)
-  default     = ["10.20.30.170", "10.20.30.111"]
+  default     = ["192.168.1.1", "192.168.1.111"]
 }
 
 variable "datastore_id" {
