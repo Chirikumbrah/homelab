@@ -18,7 +18,7 @@ global:
 
 vms:
   talos-cp-01:
-    node_name: "pve2"
+    node_name: "pve1"
     enabled: true
     vm_id: 11
     tags: ["controlplane", "talos", "kubernetes"]
@@ -27,7 +27,7 @@ vms:
     ram: 8192
     disk_size: 200
   talos-worker-01:
-    node_name: "pve3"
+    node_name: "pve1"
     enabled: true
     vm_id: 12
     tags: ["worker", "talos", "kubernetes"]

@@ -7,8 +7,8 @@ configs:
     enabled: true
     role: "controlplane"
     bootstrap: true
-    node_name: "pve2"
+    node_name: "pve1"
   talos-worker-01:
     enabled: true
     role: "worker"
-    node_name: "pve3"
+    node_name: "pve1"
