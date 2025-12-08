@@ -1,6 +1,5 @@
 locals {
   talos_config   = yamldecode(file("${path.module}/configs/talos.yaml"))
-  network_config = yamldecode(file("${path.module}/configs/network.yaml"))
 
   # Adding node_ip from network.yaml
   talos_with_ip = {

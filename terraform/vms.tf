@@ -1,6 +1,5 @@
 locals {
-  vms_config     = yamldecode(file("${path.module}/configs/vms.yaml"))
-  network_config = yamldecode(file("${path.module}/configs/network.yaml"))
+  vms_config = yamldecode(file("${path.module}/configs/vms.yaml"))
 
   # Adding IPs from network.yaml to every VM
   vms_with_ip = {
