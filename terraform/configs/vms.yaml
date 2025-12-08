@@ -1,0 +1,43 @@
+tags:
+  - terraform
+
+global:
+  node_name: "pve1"
+  datastore_id: "local-lvm"
+  cores: 2
+  ram: 2048
+  disk_size: 200
+  pool_id: "k8s"
+  boot_order: ["sata0"]
+  startup_order: 2
+  startup_up_delay: 5
+  cpu_type: "host"
+  network_bridge: "vmbr0"
+  os_type: "l26"
+  description: "Talos Linux VM for Kubernetes cluster"
+
+vms:
+  talos-cp-01:
+    node_name: "pve2"
+    enabled: true
+    vm_id: 11
+    vm_ip_address: 192.168.1.111/24
+    gateway: "192.168.1.111"
+    dns_servers: ["192.168.1.1", "192.168.1.111"]
+    tags: ["controlplane", "talos", "kubernetes"]
+    image_file: "mc_borov:import/talos-nocloud-1.11.5.qcow2"
+    cores: 2
+    ram: 8192
+    disk_size: 200
+  talos-worker-01:
+    node_name: "pve3"
+    enabled: true
+    vm_id: 12
+    vm_ip_address: 192.168.1.112/24
+    gateway: "192.168.1.112"
+    dns_servers: ["192.168.1.1", "192.168.1.112"]
+    tags: ["worker", "talos", "kubernetes"]
+    image_file: "mc_borov:import/talos-nocloud-1.11.5.qcow2"
+    cores: 2
+    ram: 8192
+    disk_size: 200
