@@ -1,0 +1,14 @@
+network:
+  cidr: "192.168.1.0/24"
+  dns_servers: ["192.168.1.1"]
+
+  nodes:
+    talos-cp-01:
+      ip: "192.168.1.111/24"
+      node_ip: "192.168.1.111" # without a mask for Talos
+      gateway: "192.168.1.111"
+      dns_servers: ["192.168.1.1", "192.168.1.111"]
+    talos-worker-01:
+      ip: "192.168.1.112/24"
+      node_ip: "192.168.1.112"
+      dns_servers: ["192.168.1.1", "192.168.1.112"]

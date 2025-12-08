@@ -11,12 +11,11 @@ resource "local_file" "talosconfig" {
 
 output "cluster_info" {
   value = {
-    kubeconfig   = "${path.module}/generated/kubeconfig"
-    talosconfig  = "${path.module}/generated/talosconfig"
-    controlplane = "192.168.1.111"
-    workers      = ["192.168.1.112"]
-    endpoint     = var.k8s_cluster_endpoint
-    vm_ids       = module.vms.vm_ids
+    kubeconfig  = "${path.module}/generated/kubeconfig"
+    talosconfig = "${path.module}/generated/talosconfig"
+    nodes       = local.network_config.network.nodes
+    cidr        = local.network_config.network.cidr
+    endpoint    = "https://${local.network_config.network.nodes["talos-cp-01"].node_ip}:6443"
   }
 }
 

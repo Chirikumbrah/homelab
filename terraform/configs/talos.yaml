@@ -5,12 +5,10 @@ global:
 configs:
   talos-cp-01:
     enabled: true
-    node_ip: "192.168.1.111"
     role: "controlplane"
     bootstrap: true
     node_name: "pve2"
   talos-worker-01:
     enabled: true
-    node_ip: "192.168.1.112"
     role: "worker"
     node_name: "pve3"

@@ -21,9 +21,6 @@ vms:
     node_name: "pve2"
     enabled: true
     vm_id: 11
-    vm_ip_address: 192.168.1.111/24
-    gateway: "192.168.1.111"
-    dns_servers: ["192.168.1.1", "192.168.1.111"]
     tags: ["controlplane", "talos", "kubernetes"]
     image_file: "mc_borov:import/talos-nocloud-1.11.5.qcow2"
     cores: 2
@@ -33,9 +30,6 @@ vms:
     node_name: "pve3"
     enabled: true
     vm_id: 12
-    vm_ip_address: 192.168.1.112/24
-    gateway: "192.168.1.112"
-    dns_servers: ["192.168.1.1", "192.168.1.112"]
     tags: ["worker", "talos", "kubernetes"]
     image_file: "mc_borov:import/talos-nocloud-1.11.5.qcow2"
     cores: 2

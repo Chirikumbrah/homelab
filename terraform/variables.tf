@@ -47,9 +47,3 @@ variable "k8s_cluster_name" {
   default     = "yrlab"
 }
 
-variable "k8s_cluster_endpoint" {
-  description = "Cluster endpoint URL"
-  type        = string
-  default     = "https://192.168.1.111:6443"
-}
-
