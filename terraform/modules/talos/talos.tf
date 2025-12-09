@@ -55,3 +55,14 @@ resource "talos_cluster_kubeconfig" "cluster" {
   client_configuration = talos_machine_secrets.cluster.client_configuration
   node                 = values(talos_machine_bootstrap.controlplane)[0].node
 }
+
+data "talos_client_configuration" "cluster" {
+  cluster_name         = var.cluster_name
+  client_configuration = talos_machine_secrets.cluster.client_configuration
+
+  # IPs of all nodes and some specific endpoints (e.g. controlplane)
+  nodes = [for name, cfg in var.talos_configs.configs : cfg.node_ip if cfg.enabled]
+  endpoints = [for name, cfg in var.talos_configs.configs : cfg.node_ip
+    if cfg.enabled && cfg.role == "controlplane"
+  ]
+}

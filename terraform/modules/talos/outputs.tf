@@ -1,7 +1,7 @@
 # kubeconfig and secrets as outputs
 output "talosconfig" {
-  description = "Talos client configuration"
-  value       = talos_machine_secrets.cluster.client_configuration
+  description = "Talos client configuration (talosconfig)"
+  value       = data.talos_client_configuration.cluster.talos_config
   sensitive   = true
 }
 

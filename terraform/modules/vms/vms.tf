@@ -42,7 +42,9 @@ resource "proxmox_virtual_environment_vm" "vms" {
   boot_order  = coalesce(each.value.boot_order, var.vms_config.global.boot_order)
   description = each.value.description
 
-  agent { enabled = true }
+  agent {
+    enabled = true
+  }
 
   cpu {
     cores = coalesce(each.value.cores, var.vms_config.global.cores)
@@ -61,7 +63,7 @@ resource "proxmox_virtual_environment_vm" "vms" {
   disk {
     datastore_id = coalesce(each.value.datastore_id, var.vms_config.global.datastore_id)
     file_id      = var.image_ids[each.value.image_file]
-    interface    = "sata0"
+    interface    = "scsi0"
     size         = coalesce(each.value.disk_size, var.vms_config.global.disk_size)
   }
 
@@ -94,8 +96,8 @@ resource "proxmox_virtual_environment_vm" "vms" {
   lifecycle {
     ignore_changes = [
       cpu["architecture"],
-      initialization[0].dns[0].servers,
-      initialization[0].user_account[0].keys,
+      initialization, # using only as bootstrap
+      started,        # prevent Terraform to manage VM's state
     ]
   }
 }
@@ -108,6 +110,7 @@ resource "proxmox_virtual_environment_pool_membership" "vms_pools" {
     try(each.value.pool_id, null),
     try(var.vms_config.global.pool_id, null)
   )
+
   depends_on = [proxmox_virtual_environment_pool.pools]
 }
 
@@ -117,3 +120,4 @@ output "vm_ids" {
     for key, vm in proxmox_virtual_environment_vm.vms : key => vm.id
   }
 }
+

@@ -1,10 +1,11 @@
 resource "local_file" "kubeconfig" {
   content  = module.talos.kubeconfig
   filename = "${path.module}/generated/kubeconfig"
+  file_permission = "0600"
 }
 
 resource "local_file" "talosconfig" {
-  content         = jsonencode(module.talos.talosconfig)
+  content         = module.talos.talosconfig
   filename        = "${path.module}/generated/talosconfig"
   file_permission = "0600"
 }
