@@ -12,6 +12,24 @@ locals {
     for key, vm in var.vms_config.vms : key => vm
     if vm.enabled
   }
+
+  all_pools = distinct(
+    compact(
+      concat(
+        [try(var.vms_config.global.pool_id, null)],
+        [
+          for _, vm in local.enabled_vms : try(vm.pool_id, null)
+        ]
+      )
+    )
+  )
+}
+
+resource "proxmox_virtual_environment_pool" "pools" {
+  for_each = toset(local.all_pools)
+
+  pool_id = each.value
+  comment = "Managed by Terraform"
 }
 
 resource "proxmox_virtual_environment_vm" "vms" {
@@ -23,8 +41,6 @@ resource "proxmox_virtual_environment_vm" "vms" {
   vm_id       = each.value.vm_id
   boot_order  = coalesce(each.value.boot_order, var.vms_config.global.boot_order)
   description = each.value.description
-
-  pool_id = try(coalesce(each.value.pool_id, var.vms_config.global.pool_id), null)
 
   agent { enabled = true }
 
@@ -44,7 +60,7 @@ resource "proxmox_virtual_environment_vm" "vms" {
 
   disk {
     datastore_id = coalesce(each.value.datastore_id, var.vms_config.global.datastore_id)
-    file_id      = each.value.image_file
+    file_id      = var.image_ids[each.value.image_file]
     interface    = "sata0"
     size         = coalesce(each.value.disk_size, var.vms_config.global.disk_size)
   }
@@ -82,6 +98,17 @@ resource "proxmox_virtual_environment_vm" "vms" {
       initialization[0].user_account[0].keys,
     ]
   }
+}
+
+resource "proxmox_virtual_environment_pool_membership" "vms_pools" {
+  for_each = local.enabled_vms
+  vm_id    = proxmox_virtual_environment_vm.vms[each.key].vm_id
+
+  pool_id = coalesce(
+    try(each.value.pool_id, null),
+    try(var.vms_config.global.pool_id, null)
+  )
+  depends_on = [proxmox_virtual_environment_pool.pools]
 }
 
 output "vm_ids" {

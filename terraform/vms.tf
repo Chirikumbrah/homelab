@@ -7,6 +7,7 @@ locals {
       vm_ip_address = local.network_config.network.nodes[key].ip
     })
   }
+
 }
 
 module "vms" {
@@ -19,4 +20,6 @@ module "vms" {
     })
     vms = local.vms_with_ip
   })
+
+  image_ids = module.cloud_images.image_ids
 }

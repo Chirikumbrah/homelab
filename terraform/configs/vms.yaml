@@ -2,7 +2,7 @@ tags:
   - terraform
 
 global:
-  node_name: "pve1"
+  node_name: "yrlab1"
   datastore_id: "local-lvm"
   cores: 2
   ram: 2048
@@ -18,20 +18,20 @@ global:
 
 vms:
   talos-cp-01:
-    node_name: "pve1"
+    node_name: "yrlab1"
     enabled: true
-    vm_id: 11
+    vm_id: 111
     tags: ["controlplane", "talos", "kubernetes"]
-    image_file: "mc_borov:import/talos-nocloud-1.11.5.qcow2"
+    image_file: talos-nocloud
     cores: 2
     ram: 8192
     disk_size: 200
   talos-worker-01:
-    node_name: "pve1"
+    node_name: "yrlab1"
     enabled: true
-    vm_id: 12
+    vm_id: 112
     tags: ["worker", "talos", "kubernetes"]
-    image_file: "mc_borov:import/talos-nocloud-1.11.5.qcow2"
+    image_file: talos-nocloud
     cores: 2
     ram: 8192
     disk_size: 200

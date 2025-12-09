@@ -1,20 +1,20 @@
 global:
-  node_name: "pve1"
-  datastore_id: "mc_borov"
+  node_name: "yrlab1"
+  datastore_id: "local"
   upload_timeout: 3600
   overwrite: false
 
 images:
   talos:
     enabled: false
-    content_type: "import"
+    content_type: "iso"
     # Image with qemu-agents
     url: "https://factory.talos.dev/image/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515/v1.11.5/metal-amd64.qcow2"
     file_name: "talos-1.11.5.qcow2"
 
   talos-nocloud:
-    enabled: false
-    content_type: "import"
+    enabled: true
+    content_type: "iso"
     # NoCloud image for cloud-init support (compressed)
-    url: "https://factory.talos.dev/image/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515/v1.11.5/nocloud-amd64.qcow2"
-    file_name: "talos-nocloud-1.11.5.qcow2"
+    url: "https://factory.talos.dev/image/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515/v1.11.5/nocloud-amd64.iso"
+    file_name: "talos-nocloud-1.11.5.iso"

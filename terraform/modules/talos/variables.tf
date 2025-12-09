@@ -34,11 +34,6 @@ variable "cluster_endpoint" {
   type        = string
 }
 
-variable "extra_cluster_config" {
-  description = "Extra cluster config YAML"
-  default     = null
-}
-
 variable "vm_ids_dependency" {
   description = "Dependency on VM creation (pass proxmox_virtual_environment_vm.vms)"
   type        = any

@@ -1,5 +1,5 @@
 global:
-  node_name: "pve1"
+  node_name: "yrlab1"
   datastore_id: "local-lvm"
 
 configs:
@@ -7,8 +7,8 @@ configs:
     enabled: true
     role: "controlplane"
     bootstrap: true
-    node_name: "pve1"
+    node_name: "yrlab1"
   talos-worker-01:
     enabled: true
     role: "worker"
-    node_name: "pve1"
+    node_name: "yrlab1"

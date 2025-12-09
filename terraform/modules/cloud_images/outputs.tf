@@ -5,9 +5,10 @@ output "downloaded_image_files" {
   ]
 }
 
-output "image_file_ids" {
-  description = "Map of image names to their file IDs for use in VMs"
+output "image_ids" {
+  description = "Map of image name => volume ID"
   value = {
-    for key, image in proxmox_virtual_environment_download_file.cloud_images : key => image.id
+    for name, res in proxmox_virtual_environment_download_file.cloud_images :
+    name => res.id
   }
 }

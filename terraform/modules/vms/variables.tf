@@ -48,3 +48,8 @@ variable "vms_config" {
     }))
   })
 }
+
+variable "image_ids" {
+  description = "Map of image logical name => volume ID from images module"
+  type        = map(string)
+}
