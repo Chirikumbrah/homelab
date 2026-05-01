@@ -1,17 +1,22 @@
-# kubeconfig and secrets as outputs
-output "talosconfig" {
-  description = "Talos client configuration"
-  value       = talos_machine_secrets.cluster.client_configuration
+output "client_configuration" {
+  description = "Talos client configuration (for talosctl)"
+  value       = talos_machine_secrets.this.client_configuration
   sensitive   = true
 }
 
-output "kubeconfig" {
-  description = "Kubernetes kubeconfig"
-  value       = talos_cluster_kubeconfig.cluster.kubeconfig_raw
-}
-
-output "machine_secrets" {
-  description = "Talos machine secrets"
-  value       = talos_machine_secrets.cluster.machine_secrets
+# Rendered machineconfigs exposed for rescue: when `talos_machine_configuration_apply`
+# fails with "no route to host :50000" on a freshly booted VM, extract via
+#   terraform output -json talos_{role}_machineconfig | jq -r > /tmp/mc.yaml
+# and apply manually: talosctl apply-config --insecure -e <ip> -n <ip> -f /tmp/mc.yaml
+output "controlplane_machine_configuration" {
+  description = "Rendered controlplane machineconfig (before per-node patch) — rescue for manual talosctl apply-config"
+  value       = data.talos_machine_configuration.controlplane.machine_configuration
   sensitive   = true
 }
+
+output "worker_machine_configuration" {
+  description = "Rendered worker machineconfig (before per-node patch) — rescue for manual talosctl apply-config"
+  value       = data.talos_machine_configuration.worker.machine_configuration
+  sensitive   = true
+}
+

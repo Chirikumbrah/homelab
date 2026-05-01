@@ -1,0 +1,17 @@
+machine:
+  network:
+    interfaces:
+      - interface: eth0
+        dhcp: true
+        vip:
+          ip: ${vip}
+cluster:
+  apiServer:
+    certSANs:
+%{ for s in apiserver_cert_sans ~}
+      - ${s}
+%{ endfor ~}
+%{ for ip in cp_node_ips ~}
+      - ${ip}
+%{ endfor ~}
+  allowSchedulingOnControlPlanes: true

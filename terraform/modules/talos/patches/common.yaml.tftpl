@@ -1,0 +1,21 @@
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: "true"
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
+    extraConfig:
+      serverTLSBootstrap: true
+  kernel:
+    modules:
+      - name: nvme_tcp
+  install:
+    disk: ${install_disk}
+    image: ${install_image}
+    wipe: false

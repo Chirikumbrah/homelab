@@ -1,14 +1,36 @@
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs
 terraform {
+  required_version = ">= 1.11"
+
   required_providers {
-    proxmox = { source = "bpg/proxmox" }
-    talos   = { source = "siderolabs/talos" }
+    proxmox = {
+      source = "bpg/proxmox"
+    }
+    vault = {
+      source = "hashicorp/vault"
+    }
+    talos = {
+      source  = "siderolabs/talos"
+      version = "0.11.0-beta.2"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.13"
+    }
   }
 }
 
+# Auth: TF_VAR_proxmox_username + TF_VAR_main_password.
 provider "proxmox" {
   endpoint = var.proxmox_endpoint
   insecure = true
   username = var.proxmox_username
   password = var.proxmox_password
+  ssh {
+    username    = "root"
+    private_key = file(var.proxmox_ssh_key_path)
+  }
 }
+
+# Аутентификация — через переменные окружения VAULT_ADDR + VAULT_TOKEN.
+provider "vault" {}

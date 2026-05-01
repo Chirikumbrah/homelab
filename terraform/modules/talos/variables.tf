@@ -1,41 +1,49 @@
-variable "talos_configs" {
-  description = "Talos node configurations"
-  type = object({
-    global = object({
-      node_name    = string
-      datastore_id = string
-    })
-    configs = map(object({
-      enabled              = bool
-      node_ip              = string                 # VM IP from modules/vms/
-      role                 = string                 # controlplane | worker
-      bootstrap            = optional(bool, false)  # true for first VM (controlplane)
-      extra_machine_config = optional(string, null) # YAML patches for machine config
-      node_name            = optional(string, null)
-      datastore_id         = optional(string, null)
-    }))
-  })
-}
-
-variable "talos_version" {
-  description = "Talos version"
-  type        = string
-  default     = "v1.10.8"
-}
-
 variable "cluster_name" {
-  description = "Kubernetes cluster name"
+  description = "Talos cluster name (must match existing cluster for import)"
   type        = string
-  default     = "homelab"
 }
 
 variable "cluster_endpoint" {
-  description = "Cluster endpoint (https://LOAD_BALANCER_IP:6443)"
+  description = "Kubernetes API endpoint URL, e.g. https://192.168.1.100:6443"
   type        = string
 }
 
-variable "vm_ids_dependency" {
-  description = "Dependency on VM creation (pass proxmox_virtual_environment_vm.vms)"
-  type        = any
+variable "kubernetes_version" {
+  description = "Kubernetes version (matches existing kubelet image tag)"
+  type        = string
 }
 
+variable "talos_version" {
+  description = "Talos schema version (vX.Y, no patch) — passed to talos_machine_configuration."
+  type        = string
+}
+
+variable "talos_image" {
+  description = "Effective Talos installer URL"
+  type        = string
+}
+
+variable "install_disk" {
+  description = "Block device Talos installer writes to."
+  type        = string
+  default     = "/dev/sda"
+}
+
+variable "vip" {
+  description = "VIP address advertised by control-plane nodes"
+  type        = string
+}
+
+variable "apiserver_cert_sans" {
+  description = "Additional SANs for kube-apiserver cert (external DNS, etc.)"
+  type        = list(string)
+  default     = []
+}
+
+variable "nodes" {
+  description = "Map of all Talos nodes"
+  type = map(object({
+    address = string # IP without CIDR
+    role    = string # "controlplane" or "worker"
+  }))
+}

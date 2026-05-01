@@ -13,7 +13,7 @@ locals {
   }
 }
 
-resource "proxmox_virtual_environment_download_file" "cloud_images" {
+resource "proxmox_download_file" "cloud_images" {
   for_each = local.enabled_images
 
   # Use image-specific settings with fallback to global settings

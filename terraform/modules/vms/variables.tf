@@ -16,14 +16,17 @@ variable "vms_config" {
       cpu_type         = string
       network_bridge   = string
       os_type          = string
+      machine          = optional(string)
+      image_file       = optional(string)
+      description      = optional(string)
     })
     tags = list(string)
     vms = map(object({
-      enabled       = bool
-      vm_id         = number
-      vm_ip_address = string
-      tags          = optional(list(string))
-      description   = optional(string)
+      enabled     = bool
+      vm_id       = number
+      address     = string
+      tags        = optional(list(string))
+      description = optional(string)
       # Allow overriding global settings per VM
       node_name        = optional(string)
       datastore_id     = optional(string)
@@ -45,6 +48,7 @@ variable "vms_config" {
       vm_password       = optional(string)
       image_file        = optional(string)
       user_data_file_id = optional(string)
+      machine           = optional(string)
     }))
   })
 }
@@ -52,4 +56,5 @@ variable "vms_config" {
 variable "image_ids" {
   description = "Map of image logical name => volume ID from images module"
   type        = map(string)
+  default     = {}
 }
