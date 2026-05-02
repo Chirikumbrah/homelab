@@ -6,12 +6,8 @@ global:
   dns_servers: ["192.168.1.1", "1.1.1.1"]
   node_name: "yrlab1"
   datastore_id: "local-lvm"
-  cores: 2
-  ram: 4096
-  disk_size: 150
   pool_id: "k8s"
   boot_order: ["scsi0"]
-  startup_order: 2
   startup_up_delay: 30
   machine: "q35"
   cpu_type: "host"
@@ -25,17 +21,17 @@ vms:
     enabled: true
     vm_id: 111
     address: "192.168.1.111/24"
-    tags: ["talos", "kubernetes", "cp"]
+    cores: 2
+    ram: 8192
+    disk_size: 100
     startup_order: 1
-  talos-cp-02:
+    tags: ["talos", "kubernetes", "cp"]
+  talos-worker-02:
     enabled: true
     vm_id: 112
     address: "192.168.1.112/24"
-    tags: ["talos", "kubernetes", "cp"]
+    cores: 2
+    ram: 8192
+    disk_size: 350
     startup_order: 2
-  talos-cp-03:
-    enabled: true
-    vm_id: 113
-    address: "192.168.1.113/24"
-    tags: ["talos", "kubernetes", "cp"]
-    startup_order: 3
+    tags: ["talos", "kubernetes", "worker"]
