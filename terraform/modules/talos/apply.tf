@@ -1,18 +1,3 @@
-# Buffer between VM creation and talos_machine_configuration_apply so the
-# provider doesn't hit a freshly-booted VM before Talos maintenance mode has
-# opened :50000. Empirically Talos answers in ~20–45s; 75s gives slack.
-# Only fires at first create per node — on VM destroy+recreate also target-destroy
-# this resource so the sleep re-runs.
-# resource "time_sleep" "wait_maintenance" {
-#   for_each = var.nodes
-#
-#   create_duration = "75s"
-#
-#   triggers = {
-#     node = each.value.address
-#   }
-# }
-
 resource "talos_machine_configuration_apply" "this" {
   for_each = var.nodes
 
@@ -39,6 +24,4 @@ resource "talos_machine_configuration_apply" "this" {
     create = "15m"
     update = "10m"
   }
-
-  # depends_on = [time_sleep.wait_maintenance]
 }
