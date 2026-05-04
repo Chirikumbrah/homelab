@@ -8,6 +8,7 @@ global:
   datastore_id: "local-lvm"
   pool_id: "k8s"
   boot_order: ["scsi0"]
+  startup_order: 2
   startup_up_delay: 30
   machine: "q35"
   cpu_type: "host"

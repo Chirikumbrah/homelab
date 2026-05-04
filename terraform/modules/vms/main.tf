@@ -27,11 +27,11 @@ resource "proxmox_virtual_environment_vm" "vms" {
   agent { enabled = true }
 
   cpu {
-    cores = coalesce(each.value.cores, var.vms_config.global.cores)
+    cores = each.value.cores
     type  = coalesce(each.value.cpu_type, var.vms_config.global.cpu_type)
   }
 
-  memory { dedicated = coalesce(each.value.ram, var.vms_config.global.ram) }
+  memory { dedicated = each.value.ram }
 
   startup {
     order    = coalesce(each.value.startup_order, var.vms_config.global.startup_order)
@@ -43,7 +43,7 @@ resource "proxmox_virtual_environment_vm" "vms" {
     file_id = coalesce(each.value.image_file, try(var.vms_config.global.image_file, null)
     ) != null ? var.image_ids[coalesce(each.value.image_file, var.vms_config.global.image_file)] : null
     interface = "scsi0"
-    size      = coalesce(each.value.disk_size, var.vms_config.global.disk_size)
+    size      = each.value.disk_size
     iothread  = true
     aio       = "io_uring"
     cache     = "none"

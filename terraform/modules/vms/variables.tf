@@ -6,9 +6,6 @@ variable "vms_config" {
       datastore_id     = string
       gateway          = string
       dns_servers      = list(string)
-      cores            = number
-      ram              = number
-      disk_size        = number
       pool_id          = optional(string)
       boot_order       = list(string)
       startup_order    = number
