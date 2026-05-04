@@ -27,6 +27,7 @@ resource "talos_cluster_kubeconfig" "this" {
 }
 
 resource "local_sensitive_file" "kubeconfig" {
-  content  = talos_cluster_kubeconfig.this.kubeconfig_raw
-  filename = "${path.root}/generated/kubeconfig"
+  content         = talos_cluster_kubeconfig.this.kubeconfig_raw
+  filename        = "${path.root}/generated/kubeconfig"
+  file_permission = "0400"
 }

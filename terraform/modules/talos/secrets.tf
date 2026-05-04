@@ -14,5 +14,6 @@ data "talos_client_configuration" "this" {
 resource "local_sensitive_file" "talosconfig" {
   content  = data.talos_client_configuration.this.talos_config
   filename = "${path.root}/generated/talosconfig"
+  file_permission = "0400"
 }
 
