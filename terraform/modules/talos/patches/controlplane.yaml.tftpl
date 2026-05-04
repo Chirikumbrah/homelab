@@ -7,6 +7,15 @@ machine:
           ip: ${vip}
 cluster:
   apiServer:
+    admissionControl:
+      - name: PodSecurity
+        configuration:
+          apiVersion: pod-security.admission.config.k8s.io/v1
+          kind: PodSecurityConfiguration
+          defaults:
+            enforce: privileged
+            audit: restricted
+            warn: restricted
     certSANs:
 %{ for s in apiserver_cert_sans ~}
       - ${s}
