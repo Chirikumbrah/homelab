@@ -22,7 +22,7 @@ vms:
     enabled: true
     vm_id: 111
     address: "192.168.1.111/24"
-    cores: 4
+    cores: 3
     ram: 13312
     disk_size: 480
     startup_order: 1
