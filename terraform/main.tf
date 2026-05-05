@@ -57,7 +57,7 @@ module "talos" {
   talos_image        = module.talos_image_factory.install_image
 
   # cluster_endpoint host (VIP) автоматически попадает в apiserver certSANs — дублировать не нужно
-  apiserver_cert_sans = ["yrlab.net"]
+  apiserver_cert_sans = ["yrlab.net", "yrlab.local"]
 
   nodes = {
     for name, vm in local.vms_config.vms : name => {
