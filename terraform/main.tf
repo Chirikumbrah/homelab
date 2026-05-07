@@ -13,7 +13,7 @@ module "cloud_images" {
   images_config = {
     global = {
       node_name    = "yrlab1"
-      datastore_id = "local"
+      datastore_id = "shared-nfs-yrlab1"
     }
     images = {
       "talos-longhorn" = {
